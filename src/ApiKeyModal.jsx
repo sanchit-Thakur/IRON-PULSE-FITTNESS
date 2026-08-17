@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE } from './config';
 import './ApiKeyModal.css';
 
 const ApiKeyModal = ({ isOpen, onClose, onConfigSaved }) => {
@@ -16,7 +17,7 @@ const ApiKeyModal = ({ isOpen, onClose, onConfigSaved }) => {
   // Fetch current AI Config from backend
   const fetchAiConfig = async () => {
     try {
-      const res = await fetch('http://localhost:5001/api/config/ai');
+      const res = await fetch(`${API_BASE}/api/config/ai`);
       const data = await res.json();
       if (data.success) {
         setActiveProvider(data.config.activeProvider || 'hybrid');
@@ -42,7 +43,7 @@ const ApiKeyModal = ({ isOpen, onClose, onConfigSaved }) => {
     const targetKey = providerName === 'grok' ? grokKey : geminiKey;
 
     try {
-      const res = await fetch('http://localhost:5001/api/config/ai/test', {
+      const res = await fetch(`${API_BASE}/api/config/ai/test`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ provider: providerName, key: targetKey })
@@ -67,7 +68,7 @@ const ApiKeyModal = ({ isOpen, onClose, onConfigSaved }) => {
     setTestStatus(null);
 
     try {
-      const res = await fetch('http://localhost:5001/api/config/ai', {
+      const res = await fetch(`${API_BASE}/api/config/ai`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

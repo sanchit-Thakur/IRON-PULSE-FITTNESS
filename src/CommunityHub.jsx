@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { API_BASE } from './config';
 import ThemeToggle from './ThemeToggle';
 import ApiKeyModal from './ApiKeyModal';
 import UserProfileModal from './UserProfileModal';
@@ -47,9 +48,9 @@ const CommunityHub = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
   const fetchCommunityData = async () => {
     try {
       const [cmRes, lbRes, plRes] = await Promise.all([
-        fetch('http://localhost:5001/api/community/crowd-meter'),
-        fetch('http://localhost:5001/api/community/leaderboard'),
-        fetch('http://localhost:5001/api/community/playlists')
+        fetch(`${API_BASE}/api/community/crowd-meter`),
+        fetch(`${API_BASE}/api/community/leaderboard`),
+        fetch(`${API_BASE}/api/community/playlists`)
       ]);
 
       const cmData = await cmRes.json();
@@ -137,7 +138,7 @@ const CommunityHub = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
     }));
 
     try {
-      await fetch(`http://localhost:5001/api/community/leaderboard/${id}/cheer`, {
+      await fetch(`${API_BASE}/api/community/leaderboard/${id}/cheer`, {
         method: 'POST'
       });
     } catch (err) {
@@ -161,7 +162,7 @@ const CommunityHub = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:5001/api/community/leaderboard', {
+      const response = await fetch(`${API_BASE}/api/community/leaderboard`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

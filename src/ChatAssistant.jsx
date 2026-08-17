@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { API_BASE } from './config';
 import ThemeToggle from './ThemeToggle';
 import ApiKeyModal from './ApiKeyModal';
 import UserProfileModal from './UserProfileModal';
@@ -107,7 +108,7 @@ const ChatAssistant = ({ user, updateAvatar, onSaveProfile, onLogout, isWidgetOn
     setIsTyping(true);
 
     try {
-      const response = await fetch('http://localhost:5001/api/chat', {
+      const response = await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: query }),
@@ -144,7 +145,7 @@ const ChatAssistant = ({ user, updateAvatar, onSaveProfile, onLogout, isWidgetOn
         {
           id: Date.now() + 1,
           sender: 'bot',
-          text: "⚠️ Offline Response Mode: Could not connect to backend server on http://localhost:5001. Make sure node server is running.",
+          text: "⚠️ Offline Response Mode: Could not connect to backend server. Make sure the server is running.",
           time: "OFFLINE"
         }
       ]);

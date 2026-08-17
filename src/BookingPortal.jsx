@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { API_BASE } from './config';
 import ThemeToggle from './ThemeToggle';
 import ApiKeyModal from './ApiKeyModal';
 import UserProfileModal from './UserProfileModal';
@@ -65,9 +66,9 @@ const BookingPortal = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
   const fetchPortalData = async () => {
     try {
       const [tRes, cRes, bRes] = await Promise.all([
-        fetch('http://localhost:5001/api/trainers'),
-        fetch('http://localhost:5001/api/classes'),
-        fetch('http://localhost:5001/api/bookings')
+        fetch(`${API_BASE}/api/trainers`),
+        fetch(`${API_BASE}/api/classes`),
+        fetch(`${API_BASE}/api/bookings`)
       ]);
 
       const tData = await tRes.json();
@@ -173,7 +174,7 @@ const BookingPortal = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:5001/api/bookings', {
+      const response = await fetch(`${API_BASE}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -206,7 +207,7 @@ const BookingPortal = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
   const handleCancelBooking = async (id) => {
     if (!window.confirm("Are you sure you want to cancel this reservation?")) return;
     try {
-      await fetch(`http://localhost:5001/api/bookings/${id}`, { method: 'DELETE' });
+      await fetch(`${API_BASE}/api/bookings/${id}`, { method: 'DELETE' });
       setMyBookings(prev => prev.filter(b => b.id !== id));
     } catch (err) {
       setMyBookings(prev => prev.filter(b => b.id !== id));

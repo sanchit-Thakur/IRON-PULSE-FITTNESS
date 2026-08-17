@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { API_BASE } from './config';
 import './Dashboard.css';
 import ThemeToggle from './ThemeToggle';
 import ApiKeyModal from './ApiKeyModal';
@@ -79,7 +80,7 @@ const Dashboard = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      const response = await fetch('http://localhost:5001/api/metrics', {
+      const response = await fetch(`${API_BASE}/api/metrics`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(metrics),

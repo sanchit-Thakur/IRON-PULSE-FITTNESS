@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { API_BASE } from './config';
 import ThemeToggle from './ThemeToggle';
 import ApiKeyModal from './ApiKeyModal';
 import UserProfileModal from './UserProfileModal';
@@ -51,7 +52,7 @@ const ToolsHub = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
 
   // Fetch Muscle Mappings
   useEffect(() => {
-    fetch('http://localhost:5001/api/tools/muscle-data')
+    fetch(`${API_BASE}/api/tools/muscle-data`)
       .then(res => res.json())
       .then(data => {
         if (data.success) setMuscleData(data.muscles);
@@ -132,7 +133,7 @@ const ToolsHub = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
     if (e) e.preventDefault();
     setIsCalculatingMacros(true);
     try {
-      const response = await fetch('http://localhost:5001/api/tools/calculate-macros', {
+      const response = await fetch(`${API_BASE}/api/tools/calculate-macros`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(macroInputs)
@@ -178,7 +179,7 @@ const ToolsHub = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
     const bw = barW || barbellInputs.barWeight;
 
     try {
-      const response = await fetch('http://localhost:5001/api/tools/barbell-math', {
+      const response = await fetch(`${API_BASE}/api/tools/barbell-math`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ targetWeight: tw, unit: u, barWeight: bw })

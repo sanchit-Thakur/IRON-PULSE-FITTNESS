@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { API_BASE } from './config';
 import './Dashboard.css'; 
 import './FoodAnalysis.css';
 import ThemeToggle from './ThemeToggle';
@@ -61,7 +62,7 @@ const FoodAnalysis = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
     formData.append('goal', user.goal || 'bulking');
 
     try {
-      const response = await fetch('http://localhost:5001/api/analyze-food', {
+      const response = await fetch(`${API_BASE}/api/analyze-food`, {
         method: 'POST',
         body: formData,
       });
