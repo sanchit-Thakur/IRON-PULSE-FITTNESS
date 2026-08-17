@@ -3,13 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { API_BASE } from './config';
 import './Dashboard.css';
 import ThemeToggle from './ThemeToggle';
-import ApiKeyModal from './ApiKeyModal';
 import UserProfileModal from './UserProfileModal';
 
 const Dashboard = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
   const location = useLocation();
   const [showAvatarModal, setShowAvatarModal] = useState(false);
-  const [showAiKeyModal, setShowAiKeyModal] = useState(false);
   const avatars = [
     '/avatars/avatar1.png',
     '/avatars/avatar2.png',
@@ -172,9 +170,6 @@ const Dashboard = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
           </div>
         </div>
         <div className="nav-actions">
-          <button className="ai-keys-nav-btn" onClick={() => setShowAiKeyModal(true)}>
-            🔑 AI KEYS
-          </button>
           <ThemeToggle />
           <div className="user-profile" onClick={() => setShowAvatarModal(true)}>
             <span>{user.name.toUpperCase()}</span>
@@ -184,7 +179,6 @@ const Dashboard = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
         </div>
       </nav>
 
-      <ApiKeyModal isOpen={showAiKeyModal} onClose={() => setShowAiKeyModal(false)} />
       <UserProfileModal isOpen={showAvatarModal} onClose={() => setShowAvatarModal(false)} user={user} onSaveProfile={onSaveProfile || updateAvatar} />
 
       <main className="dashboard-content">

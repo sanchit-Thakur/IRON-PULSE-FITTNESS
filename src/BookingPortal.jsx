@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { API_BASE } from './config';
 import ThemeToggle from './ThemeToggle';
-import ApiKeyModal from './ApiKeyModal';
 import UserProfileModal from './UserProfileModal';
 import './Dashboard.css';
 import './BookingPortal.css';
@@ -12,7 +11,6 @@ const BookingPortal = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
 
   const [activeTab, setActiveTab] = useState('new'); // 'new' | 'my-bookings'
   const [showAvatarModal, setShowAvatarModal] = useState(false);
-  const [showAiKeyModal, setShowAiKeyModal] = useState(false);
 
   // Filter States
   const [bookingType, setBookingType] = useState('trainer'); // 'trainer' | 'class'
@@ -239,9 +237,6 @@ const BookingPortal = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
           </div>
         </div>
         <div className="nav-actions">
-          <button className="ai-keys-nav-btn" onClick={() => setShowAiKeyModal(true)}>
-            🔑 AI KEYS
-          </button>
           <ThemeToggle />
           <div className="user-profile" onClick={() => setShowAvatarModal(true)}>
             <span>{user.name.toUpperCase()}</span>
@@ -251,7 +246,6 @@ const BookingPortal = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
         </div>
       </nav>
 
-      <ApiKeyModal isOpen={showAiKeyModal} onClose={() => setShowAiKeyModal(false)} />
       <UserProfileModal isOpen={showAvatarModal} onClose={() => setShowAvatarModal(false)} user={user} onSaveProfile={onSaveProfile || updateAvatar} />
 
       <main className="dashboard-content">

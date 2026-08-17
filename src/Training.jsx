@@ -3,13 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import './Dashboard.css';
 import './Training.css';
 import ThemeToggle from './ThemeToggle';
-import ApiKeyModal from './ApiKeyModal';
 import UserProfileModal from './UserProfileModal';
 
 const Training = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
   const location = useLocation();
   const [showAvatarModal, setShowAvatarModal] = useState(false);
-  const [showAiKeyModal, setShowAiKeyModal] = useState(false);
   const [activeTab, setActiveTab] = useState('gym'); // 'gym' | 'home' | 'rehab'
   const [selectedMuscle, setSelectedMuscle] = useState('ALL');
 
@@ -288,9 +286,6 @@ const Training = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
           </div>
         </div>
         <div className="nav-actions">
-          <button className="ai-keys-nav-btn" onClick={() => setShowAiKeyModal(true)}>
-            🔑 AI KEYS
-          </button>
           <ThemeToggle />
           <div className="user-profile" onClick={() => setShowAvatarModal(true)}>
             <span>{user.name.toUpperCase()}</span>
@@ -300,7 +295,6 @@ const Training = ({ user, updateAvatar, onSaveProfile, onLogout }) => {
         </div>
       </nav>
 
-      <ApiKeyModal isOpen={showAiKeyModal} onClose={() => setShowAiKeyModal(false)} />
       <UserProfileModal isOpen={showAvatarModal} onClose={() => setShowAvatarModal(false)} user={user} onSaveProfile={onSaveProfile || updateAvatar} />
 
       <main className="dashboard-content">
